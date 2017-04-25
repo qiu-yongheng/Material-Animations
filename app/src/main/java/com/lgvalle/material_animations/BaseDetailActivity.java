@@ -20,6 +20,7 @@ public class BaseDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // 不显示title
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
@@ -29,6 +30,11 @@ public class BaseDetailActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * 创建共享元素， 用定义的动画打开界面
+     * 共享元素是状态栏
+     * @param i
+     */
     @SuppressWarnings("unchecked") void transitionTo(Intent i) {
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs);

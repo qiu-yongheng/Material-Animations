@@ -22,16 +22,24 @@ public class TransitionActivity2 extends BaseDetailActivity {
         setupToolbar();
     }
 
+    /**
+     * bind初始化界面
+     */
     private void bindData() {
         ActivityTransition2Binding binding = DataBindingUtil.setContentView(this, R.layout.activity_transition2);
         Sample sample = (Sample) getIntent().getExtras().getSerializable(EXTRA_SAMPLE);
+        // 获取要显示的动画类型
         type = getIntent().getExtras().getInt(EXTRA_TYPE);
+        // 给界面绑定数据
         binding.setTransition2Sample(sample);
     }
 
+    /**
+     * 根据类型设置动画是代码实现还是xml实现
+     * 设置界面进入的动画
+     */
     private void setupWindowAnimations() {
         Transition transition;
-
         if (type == TYPE_PROGRAMMATICALLY) {
             transition = buildEnterTransition();
         }  else {
@@ -40,6 +48,9 @@ public class TransitionActivity2 extends BaseDetailActivity {
         getWindow().setEnterTransition(transition);
     }
 
+    /**
+     * 在显示动画后, 结束界面
+     */
     private void setupLayout() {
         findViewById(R.id.exit_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +60,10 @@ public class TransitionActivity2 extends BaseDetailActivity {
         });
     }
 
+    /**
+     * 爆炸动画: 控件往中间移动
+     * @return
+     */
     private Transition buildEnterTransition() {
         Explode enterTransition = new Explode();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
