@@ -42,21 +42,32 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
         setupToolbar();
     }
 
+    /**
+     * bind
+     */
     private void bindData() {
         ActivityRevealBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_reveal);
         Sample sample = (Sample) getIntent().getExtras().getSerializable(EXTRA_SAMPLE);
         binding.setReveal1Sample(sample);
     }
 
+    /**
+     * 设置动画
+     */
     private void setupWindowAnimations() {
         interpolator = AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in);
         setupEnterAnimations();
         setupExitAnimations();
     }
 
+    /**
+     *
+     */
     private void setupEnterAnimations() {
         Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.changebounds_with_arcmotion);
+        // 设置元素的动画
         getWindow().setSharedElementEnterTransition(transition);
+        // 添加动画执行的监听
         transition.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
@@ -64,10 +75,13 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
 
             @Override
             public void onTransitionEnd(Transition transition) {
-                // Removing listener here is very important because shared element transition is executed again backwards on exit. If we don't remove the listener this code will be triggered again.
+                // 在这里删除侦听器是非常重要的，因为在退出时再次向后执行共享元素转换。 如果我们不删除监听器，这个代码将被再次触发
                 transition.removeListener(this);
+                // 隐藏共享元素小圆圈
                 hideTarget();
+                // 设置toolbar动画
                 animateRevealShow(toolbar);
+                //
                 animateButtonsIn();
             }
 
@@ -205,10 +219,16 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
         body.setTextColor(ContextCompat.getColor(this, R.color.theme_green_background));
     }
 
+    /**
+     * 隐藏分享元素: 小圆圈
+     */
     private void hideTarget() {
         findViewById(R.id.shared_target).setVisibility(View.GONE);
     }
 
+    /**
+     *
+     */
     private void animateButtonsIn() {
         for (int i = 0; i < bgViewGroup.getChildCount(); i++) {
             View child = bgViewGroup.getChildAt(i);
@@ -243,12 +263,24 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
         return false;
     }
 
+    /**
+     * 设置显示toolbar的动画
+     * @param viewRoot toolbar
+     */
     private void animateRevealShow(View viewRoot) {
         int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
         int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
         int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());
 
-        Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, 0, finalRadius);
+        /**
+         * view 操作的视图
+         * centerX 动画开始的中心点X
+         * centerY 动画开始的中心点Y
+         * startRadius 动画开始半径
+         * startRadius 动画结束半径
+         */
+        Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, 0, finalRadius/2);
+        // 这个可以不用写, 效果一样
         viewRoot.setVisibility(View.VISIBLE);
         anim.setDuration(getResources().getInteger(R.integer.anim_duration_long));
         anim.setInterpolator(new AccelerateInterpolator());

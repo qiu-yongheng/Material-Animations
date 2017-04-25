@@ -47,8 +47,10 @@ class TransitionHelper {
         View decor = activity.getWindow().getDecorView();
         View statusBar = null;
         if (includeStatusBar) {
+            // 状态栏
             statusBar = decor.findViewById(android.R.id.statusBarBackground);
         }
+        // 导航栏
         View navBar = decor.findViewById(android.R.id.navigationBarBackground);
 
         // Create pair of transition participants.

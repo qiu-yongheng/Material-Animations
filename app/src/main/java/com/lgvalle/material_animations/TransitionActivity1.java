@@ -32,13 +32,9 @@ public class TransitionActivity1 extends BaseDetailActivity {
     }
 
     /**
-<<<<<<< HEAD
      * 淡入淡出
      * 设置A-->B的动画, 在B中设置
      * 表示B中控件展示的动画
-=======
-     * 设置界面进入的动画
->>>>>>> b022c9779ecdd65ef1fb56d75e457f014c72c29b
      */
     private void setupWindowAnimations() {
         Visibility enterTransition = buildEnterTransition();
@@ -46,11 +42,7 @@ public class TransitionActivity1 extends BaseDetailActivity {
     }
 
     /**
-<<<<<<< HEAD
      * item的点击事件, 显示不同的界面切换效果
-=======
-     * 显示不同的界面动画
->>>>>>> b022c9779ecdd65ef1fb56d75e457f014c72c29b
      */
     private void setupLayout() {
         /** 1. 显示代码中设置的切换动画 */
@@ -120,12 +112,8 @@ public class TransitionActivity1 extends BaseDetailActivity {
     }
 
     /**
-<<<<<<< HEAD
-     * 淡入淡出
-=======
      * 创建进入的动画 A -> B , int B
      * 渐变动画
->>>>>>> b022c9779ecdd65ef1fb56d75e457f014c72c29b
      * @return
      */
     private Visibility buildEnterTransition() {
@@ -137,12 +125,8 @@ public class TransitionActivity1 extends BaseDetailActivity {
     }
 
     /**
-<<<<<<< HEAD
-     *
-=======
      * 创建界面返回上一个界面时的动画 A -> B , int A
      * 平移动画
->>>>>>> b022c9779ecdd65ef1fb56d75e457f014c72c29b
      * @return
      */
     private Visibility buildReturnTransition() {

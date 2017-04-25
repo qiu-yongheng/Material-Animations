@@ -38,17 +38,15 @@ public class AnimationsActivity1 extends BaseDetailActivity {
     }
 
     /**
-     * bind
+     * bind 初始化界面
      */
     private void bindData() {
         ActivityAnimations1Binding binding = DataBindingUtil.setContentView(this, R.layout.activity_animations1);
         sample = (Sample) getIntent().getExtras().getSerializable(EXTRA_SAMPLE);
+        // 绑定数据
         binding.setAnimationsSample(sample);
     }
 
-    /**
-     *
-     */
     private void setupLayout() {
         square = (ImageView) findViewById(R.id.square_green);
         viewRoot = (ViewGroup) findViewById(R.id.sample3_root);
@@ -63,10 +61,11 @@ public class AnimationsActivity1 extends BaseDetailActivity {
         findViewById(R.id.sample3_button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                // 改变位置
                 changePosition();
             }
         });
+
 
         findViewById(R.id.sample3_button3).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,16 +78,17 @@ public class AnimationsActivity1 extends BaseDetailActivity {
     }
 
     /**
-     *
+     * 设置控件大小
      */
     private void changeLayout() {
         TransitionManager.beginDelayedTransition(viewRoot);
-
         ViewGroup.LayoutParams params = square.getLayoutParams();
 
+        // sizeChanged默认为false
         if (sizeChanged) {
             params.width = savedWidth;
         } else {
+            // 保存当前控件宽度
             savedWidth = params.width;
             params.width = 200;
         }
@@ -96,6 +96,9 @@ public class AnimationsActivity1 extends BaseDetailActivity {
         square.setLayoutParams(params);
     }
 
+    /**
+     * 改变控件的位置
+     */
     private void changePosition() {
         TransitionManager.beginDelayedTransition(viewRoot);
 
@@ -108,7 +111,5 @@ public class AnimationsActivity1 extends BaseDetailActivity {
         positionChanged = !positionChanged;
         square.setLayoutParams(lp);
     }
-
-
 
 }

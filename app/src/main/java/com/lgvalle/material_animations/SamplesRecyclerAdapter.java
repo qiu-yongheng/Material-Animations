@@ -26,6 +26,12 @@ public class SamplesRecyclerAdapter extends RecyclerView.Adapter<SamplesRecycler
         this.samples = samples;
     }
 
+    /**
+     * bind
+     * @param parent
+     * @param position
+     * @return
+     */
     @Override
     public SamplesViewHolder onCreateViewHolder(ViewGroup parent, int position) {
         RowSampleBinding binding = RowSampleBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
@@ -35,7 +41,9 @@ public class SamplesRecyclerAdapter extends RecyclerView.Adapter<SamplesRecycler
     @Override
     public void onBindViewHolder(final SamplesViewHolder viewHolder, final int position) {
         final Sample sample = samples.get(viewHolder.getAdapterPosition());
+        // 1. 绑定数据
         viewHolder.binding.setSample(sample);
+        // 2. 设置item的点击事件
         viewHolder.binding.sampleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

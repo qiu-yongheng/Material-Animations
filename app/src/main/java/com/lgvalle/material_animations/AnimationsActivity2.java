@@ -34,6 +34,9 @@ public class AnimationsActivity2 extends BaseDetailActivity {
         setupWindowAnimations();
     }
 
+    /**
+     * bind
+     */
     private void bindData() {
         ActivityAnimations2Binding binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_animations2);
@@ -41,9 +44,13 @@ public class AnimationsActivity2 extends BaseDetailActivity {
         binding.setAnimationsSample(sample);
     }
 
+    /**
+     * 设置enter动画
+     */
     private void setupWindowAnimations() {
-        getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(
-                R.transition.slide_from_bottom));
+        // 平移 从下往上
+        getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.slide_from_bottom));
+
         getWindow().getEnterTransition().addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
@@ -69,6 +76,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
         });
     }
 
+
     private void setupLayout() {
         final ViewGroup activityRoot = (ViewGroup) findViewById(R.id.buttons_group);
         ViewGroup sceneRoot = (ViewGroup) findViewById(R.id.scene_root);
@@ -83,7 +91,6 @@ public class AnimationsActivity2 extends BaseDetailActivity {
                             .setStartDelay(i * DELAY)
                             .scaleX(1)
                             .scaleY(1);
-
                 }
             }
         });
@@ -97,7 +104,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
             }
         });
 
-
+        //
         scene1 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene1, this);
         scene2 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene2, this);
         scene3 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene3, this);
@@ -110,6 +117,8 @@ public class AnimationsActivity2 extends BaseDetailActivity {
                 TransitionManager.go(scene1, new ChangeBounds());
             }
         });
+
+        //
         View button2 = findViewById(R.id.sample3_button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +128,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
             }
         });
 
+        //
         View button3 = findViewById(R.id.sample3_button3);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +138,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
             }
         });
 
+        //
         View button4 = findViewById(R.id.sample3_button4);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
