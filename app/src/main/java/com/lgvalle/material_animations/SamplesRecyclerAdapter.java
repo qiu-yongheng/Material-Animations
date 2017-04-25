@@ -14,6 +14,9 @@ import com.lgvalle.material_animations.databinding.RowSampleBinding;
 
 import java.util.List;
 
+/**
+ * MainActivity列表adapter
+ */
 public class SamplesRecyclerAdapter extends RecyclerView.Adapter<SamplesRecyclerAdapter.SamplesViewHolder> {
     private final Activity activity;
     private final List<Sample> samples;
@@ -54,6 +57,11 @@ public class SamplesRecyclerAdapter extends RecyclerView.Adapter<SamplesRecycler
         });
     }
 
+    /**
+     * 状态栏不可平移
+     * @param target
+     * @param sample
+     */
     private void transitionToActivity(Class target, Sample sample) {
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(activity, true);
         startActivity(target, pairs, sample);
@@ -66,6 +74,12 @@ public class SamplesRecyclerAdapter extends RecyclerView.Adapter<SamplesRecycler
         startActivity(target, pairs, sample);
     }
 
+    /**
+     * 设置界面切换动画
+     * @param target
+     * @param viewHolder
+     * @param sample
+     */
     private void transitionToActivity(Class target, SamplesViewHolder viewHolder, Sample sample) {
         final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(activity, false,
                 new Pair<>(viewHolder.binding.sampleIcon, activity.getString(R.string.square_blue_name)),

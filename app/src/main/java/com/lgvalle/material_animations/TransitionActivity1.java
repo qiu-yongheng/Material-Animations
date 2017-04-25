@@ -28,12 +28,19 @@ public class TransitionActivity1 extends BaseDetailActivity {
         binding.setTransition1Sample(sample);
     }
 
+    /**
+     * 淡入淡出
+     * 设置A-->B的动画, 在B中设置
+     * 表示B中控件展示的动画
+     */
     private void setupWindowAnimations() {
         Visibility enterTransition = buildEnterTransition();
         getWindow().setEnterTransition(enterTransition);
     }
 
-
+    /**
+     * item的点击事件, 显示不同的界面切换效果
+     */
     private void setupLayout() {
         findViewById(R.id.sample1_button1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +86,7 @@ public class TransitionActivity1 extends BaseDetailActivity {
             @Override
             public void onClick(View v) {
                 Visibility returnTransition = buildReturnTransition();
+                // 设置返回使用平移动画
                 getWindow().setReturnTransition(returnTransition);
 
                 finishAfterTransition();
@@ -90,12 +98,17 @@ public class TransitionActivity1 extends BaseDetailActivity {
                 /**
                  * If no return transition is defined Android will use reversed enter transition
                  * In this case, return transition will be a reversed Slide (defined in buildEnterTransition)
+                 * 如果没有设置返回动画, Android默认使用buildEnterTransition的动画效果
                  */
                 finishAfterTransition();
             }
         });
     }
 
+    /**
+     * 淡入淡出
+     * @return
+     */
     private Visibility buildEnterTransition() {
         Fade enterTransition = new Fade();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
@@ -104,6 +117,10 @@ public class TransitionActivity1 extends BaseDetailActivity {
         return enterTransition;
     }
 
+    /**
+     *
+     * @return
+     */
     private Visibility buildReturnTransition() {
         Visibility enterTransition = new Slide();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));

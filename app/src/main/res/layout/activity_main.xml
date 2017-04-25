@@ -13,6 +13,7 @@
         android:background="@color/material_animations_primary"
         android:elevation="@dimen/elevation_header">
 
+        <!--单独设置toolbar的标题, 要在代码中设置不显示原来的标题-->
         <TextView
             android:id="@+id/title"
             style="@style/MaterialAnimations.TextAppearance.Title.Inverse"
