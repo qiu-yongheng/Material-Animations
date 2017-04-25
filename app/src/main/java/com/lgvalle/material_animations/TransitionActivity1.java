@@ -22,29 +22,39 @@ public class TransitionActivity1 extends BaseDetailActivity {
         setupToolbar();
     }
 
+    /**
+     * 初始化界面bind
+     */
     private void bindData() {
         ActivityTransition1Binding binding = DataBindingUtil.setContentView(this, R.layout.activity_transition1);
         sample = (Sample) getIntent().getExtras().getSerializable(EXTRA_SAMPLE);
         binding.setTransition1Sample(sample);
     }
 
+    /**
+     * 设置界面进入的动画
+     */
     private void setupWindowAnimations() {
         Visibility enterTransition = buildEnterTransition();
         getWindow().setEnterTransition(enterTransition);
     }
 
-
+    /**
+     * 显示不同的界面动画
+     */
     private void setupLayout() {
+        /** 1. 显示代码中设置的切换动画 */
         findViewById(R.id.sample1_button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(TransitionActivity1.this, TransitionActivity2.class);
                 i.putExtra(EXTRA_SAMPLE, sample);
                 i.putExtra(EXTRA_TYPE, TYPE_PROGRAMMATICALLY);
+                // 打开界面
                 transitionTo(i);
             }
         });
-
+        /** 2. 显示xml中设置的切换动画 */
         findViewById(R.id.sample1_button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +64,7 @@ public class TransitionActivity1 extends BaseDetailActivity {
                 transitionTo(i);
             }
         });
-
+        /** 3.  */
         findViewById(R.id.sample1_button3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +74,7 @@ public class TransitionActivity1 extends BaseDetailActivity {
                 transitionTo(i);
             }
         });
-
+        /** 4.  */
         findViewById(R.id.sample1_button4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +84,7 @@ public class TransitionActivity1 extends BaseDetailActivity {
                 transitionTo(i);
             }
         });
-
+        /** 5. 设置设置平移动画退出界面 */
         findViewById(R.id.sample1_button5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +94,7 @@ public class TransitionActivity1 extends BaseDetailActivity {
                 finishAfterTransition();
             }
         });
+        /** 6. 不指定退出动画, 默认使用进入动画(渐变) */
         findViewById(R.id.sample1_button6).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,17 +107,28 @@ public class TransitionActivity1 extends BaseDetailActivity {
         });
     }
 
+    /**
+     * 创建进入的动画 A -> B , int B
+     * 渐变动画
+     * @return
+     */
     private Visibility buildEnterTransition() {
         Fade enterTransition = new Fade();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
-        // This view will not be affected by enter transition animation
+        // 这个视图将不会受到进入过渡动画的影响
         enterTransition.excludeTarget(R.id.square_red, true);
         return enterTransition;
     }
 
+    /**
+     * 创建界面返回上一个界面时的动画 A -> B , int A
+     * 平移动画
+     * @return
+     */
     private Visibility buildReturnTransition() {
         Visibility enterTransition = new Slide();
-        enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
+//        enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
+        enterTransition.setDuration(5000);
         return enterTransition;
     }
 }

@@ -24,6 +24,9 @@ public class TransitionActivity3 extends BaseDetailActivity {
         setupToolbar();
     }
 
+    /**
+     * bind初始化界面
+     */
     private void bindData() {
         ActivityTransition3Binding binding = DataBindingUtil.setContentView(this, R.layout.activity_transition3);
         Sample sample = (Sample) getIntent().getExtras().getSerializable(EXTRA_SAMPLE);
@@ -31,6 +34,9 @@ public class TransitionActivity3 extends BaseDetailActivity {
         binding.setTransition3Sample(sample);
     }
 
+    /**
+     * 设置界面切换动画
+     */
     private void setupWindowAnimations() {
         Transition transition;
 
@@ -42,6 +48,9 @@ public class TransitionActivity3 extends BaseDetailActivity {
         getWindow().setEnterTransition(transition);
     }
 
+    /**
+     * 结束界面
+     */
     private void setupLayout() {
         findViewById(R.id.exit_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +60,10 @@ public class TransitionActivity3 extends BaseDetailActivity {
         });
     }
 
+    /**
+     * 从右边平移进入的动画
+     * @return
+     */
     private Visibility buildEnterTransition() {
         Slide enterTransition = new Slide();
         enterTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));

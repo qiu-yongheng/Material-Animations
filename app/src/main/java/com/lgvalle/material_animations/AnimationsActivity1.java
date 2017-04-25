@@ -30,28 +30,40 @@ public class AnimationsActivity1 extends BaseDetailActivity {
         setupToolbar();
     }
 
+    /**
+     * 设置重新进来的动画为渐变
+     */
     private void setupWindowAnimations() {
         getWindow().setReenterTransition(new Fade());
     }
 
+    /**
+     * bind
+     */
     private void bindData() {
         ActivityAnimations1Binding binding = DataBindingUtil.setContentView(this, R.layout.activity_animations1);
         sample = (Sample) getIntent().getExtras().getSerializable(EXTRA_SAMPLE);
         binding.setAnimationsSample(sample);
     }
 
+    /**
+     *
+     */
     private void setupLayout() {
         square = (ImageView) findViewById(R.id.square_green);
         viewRoot = (ViewGroup) findViewById(R.id.sample3_root);
+
         findViewById(R.id.sample3_button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 改变大小
                 changeLayout();
             }
         });
         findViewById(R.id.sample3_button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //
                 changePosition();
             }
         });
@@ -66,10 +78,14 @@ public class AnimationsActivity1 extends BaseDetailActivity {
         });
     }
 
+    /**
+     *
+     */
     private void changeLayout() {
         TransitionManager.beginDelayedTransition(viewRoot);
 
         ViewGroup.LayoutParams params = square.getLayoutParams();
+
         if (sizeChanged) {
             params.width = savedWidth;
         } else {
