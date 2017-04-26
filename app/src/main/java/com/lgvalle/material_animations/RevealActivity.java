@@ -55,13 +55,14 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
      * 设置动画
      */
     private void setupWindowAnimations() {
+        // 插值器
         interpolator = AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in);
         setupEnterAnimations();
         setupExitAnimations();
     }
 
     /**
-     *
+     * 设置进入的动画
      */
     private void setupEnterAnimations() {
         Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.changebounds_with_arcmotion);
@@ -73,6 +74,10 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
             public void onTransitionStart(Transition transition) {
             }
 
+            /**
+             * 界面切换的动画结束后的回调
+             * @param transition
+             */
             @Override
             public void onTransitionEnd(Transition transition) {
                 // 在这里删除侦听器是非常重要的，因为在退出时再次向后执行共享元素转换。 如果我们不删除监听器，这个代码将被再次触发
@@ -81,7 +86,7 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
                 hideTarget();
                 // 设置toolbar动画
                 animateRevealShow(toolbar);
-                //
+                // TODO
                 animateButtonsIn();
             }
 
@@ -99,16 +104,27 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
         });
     }
 
+    /**
+     * 设置退出界面的动画
+     */
     private void setupExitAnimations() {
+        // 渐变
         Fade returnTransition = new Fade();
+        // 设置退出界面的动画
         getWindow().setReturnTransition(returnTransition);
+        // 设置动画时间
         returnTransition.setDuration(getResources().getInteger(R.integer.anim_duration_medium));
+        // 设置动画延迟开始时间
         returnTransition.setStartDelay(getResources().getInteger(R.integer.anim_duration_medium));
+        // 监听动画执行
         returnTransition.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
+                // 移除监听, 不然会重复执行
                 transition.removeListener(this);
+                // TODO
                 animateButtonsOut();
+                // 当开始执行退出动画时, fragment设置自定义动画
                 animateRevealHide(bgViewGroup);
             }
 
@@ -227,28 +243,32 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
     }
 
     /**
-     *
+     * 进入界面时, 设置按钮顺序进入
      */
     private void animateButtonsIn() {
         for (int i = 0; i < bgViewGroup.getChildCount(); i++) {
             View child = bgViewGroup.getChildAt(i);
             child.animate()
-                    .setStartDelay(100 + i * DELAY)
-                    .setInterpolator(interpolator)
-                    .alpha(1)
-                    .scaleX(1)
+                    .setStartDelay(100 + i * DELAY) // 设置动画延迟执行
+                    .setInterpolator(interpolator) // 设置插值器
+                    .alpha(1) // 透明度为1, 可见
+                    .scaleX(1) // 缩放1, 最大
                     .scaleY(1);
         }
     }
 
+    /**
+     * 退出界面时, 设置按钮退出动画
+     */
     private void animateButtonsOut() {
         for (int i = 0; i < bgViewGroup.getChildCount(); i++) {
+            // 获取父容器中的子控件
             View child = bgViewGroup.getChildAt(i);
             child.animate()
-                    .setStartDelay(i)
-                    .setInterpolator(interpolator)
-                    .alpha(0)
-                    .scaleX(0f)
+                    .setStartDelay(i) // 设置动画延迟执行
+                    .setInterpolator(interpolator) // 设置插值器
+                    .alpha(0) // 透明度0, 不可见
+                    .scaleX(0f) // 缩放0, 最小
                     .scaleY(0f);
         }
     }
@@ -304,16 +324,29 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
         return anim;
     }
 
+    /**
+     *
+     * @param viewRoot
+     */
     private void animateRevealHide(final View viewRoot) {
         int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;
         int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;
         int initialRadius = viewRoot.getWidth();
 
+        /**
+         * 创建动画
+         * 参数一: 要设置动画的控件(fragment)
+         * 参数二: 动画开始的x轴
+         * 参数三: 动画开始的y轴
+         * 参数四: 动画开始的半径(控件的宽)
+         * 参数五: 动画结束的半径
+         */
         Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, initialRadius, 0);
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                // 动画结束后, 隐藏控件
                 viewRoot.setVisibility(View.INVISIBLE);
             }
         });
