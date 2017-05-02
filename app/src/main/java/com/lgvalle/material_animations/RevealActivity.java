@@ -59,7 +59,7 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
         interpolator = AnimationUtils.loadInterpolator(this, android.R.interpolator.linear_out_slow_in);
         /**
          * 1. 共享元素: changeBounds
-         * 2. 隐藏共享元素\
+         * 2. 隐藏共享元素
          * 3.
          */
         setupEnterAnimations();
@@ -288,6 +288,7 @@ public class RevealActivity extends BaseDetailActivity implements View.OnTouchLi
      */
     private void animateButtonsIn() {
         for (int i = 0; i < bgViewGroup.getChildCount(); i++) {
+            // 获取父容器中的子控件
             View child = bgViewGroup.getChildAt(i);
             child.animate()
                     .setStartDelay(100 + i * DELAY) // 设置动画延迟执行
