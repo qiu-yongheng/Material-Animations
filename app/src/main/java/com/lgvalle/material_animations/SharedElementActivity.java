@@ -48,14 +48,14 @@ public class SharedElementActivity extends BaseDetailActivity {
      * @param sample
      */
     private void setupLayout(Sample sample) {
-        // Transition for fragment1
+        // 动画始终从左边开始
         Slide slideTransition = new Slide(Gravity.LEFT);
         slideTransition.setDuration(getResources().getInteger(R.integer.anim_duration_long));
         // 创建Fragment并定义其中的一些过渡
         SharedElementFragment1 sharedElementFragment1 = SharedElementFragment1.newInstance(sample);
-        // 设置重新进入的动画
+        // 设置重新进入的动画(左边出来)
         sharedElementFragment1.setReenterTransition(slideTransition);
-        // 设置离开的动画
+        // 设置离开的动画(回到左边)
         sharedElementFragment1.setExitTransition(slideTransition);
         // 设置元素进入的动画
         sharedElementFragment1.setSharedElementEnterTransition(new ChangeBounds());
