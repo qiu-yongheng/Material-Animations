@@ -71,6 +71,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
             @Override
             public void onTransitionEnd(Transition transition) {
                 getWindow().getEnterTransition().removeListener(this);
+                // 默认显示scene0
                 TransitionManager.go(scene0);
             }
         });
@@ -81,10 +82,15 @@ public class AnimationsActivity2 extends BaseDetailActivity {
         final ViewGroup activityRoot = (ViewGroup) findViewById(R.id.buttons_group);
         ViewGroup sceneRoot = (ViewGroup) findViewById(R.id.scene_root);
 
+        /** 设置sceneRoot放置的控件 */
         scene0 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene0, this);
         scene0.setEnterAction(new Runnable() {
             @Override
             public void run() {
+
+                /**
+                 * 控件顺序出现
+                 */
                 for (int i = 0; i < viewsToAnimate.size(); i++) {
                     View child = viewsToAnimate.get(i);
                     child.animate()
@@ -94,6 +100,10 @@ public class AnimationsActivity2 extends BaseDetailActivity {
                 }
             }
         });
+
+        /**
+         * 设置界面离开, 隐藏文字(切换显示scene, scene0的内容被sceneX替代, 个人认为这个方法是用来演示用的)
+         */
         scene0.setExitAction(new Runnable() {
             @Override
             public void run() {
@@ -104,7 +114,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
             }
         });
 
-        //
+        /** 相同控件(id一致)不同布局, 设置动画来切换 */
         scene1 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene1, this);
         scene2 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene2, this);
         scene3 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene3, this);
@@ -114,6 +124,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 TransitionManager.go(scene1, new ChangeBounds());
             }
         });
@@ -123,6 +134,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // scene切换动画: 向下平移, 控件切换动画: ChangeBounds 同步播放动画
                 TransitionManager.go(scene2, TransitionInflater.from(AnimationsActivity2.this).
                         inflateTransition(R.transition.slide_and_changebounds));
             }
@@ -133,6 +145,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // scene切换动画: 向下平移, 控件切换动画: ChangeBounds  顺序播放动画
                 TransitionManager.go(scene3, TransitionInflater.from(AnimationsActivity2.this).
                         inflateTransition(R.transition.slide_and_changebounds_sequential));
             }
@@ -143,6 +156,7 @@ public class AnimationsActivity2 extends BaseDetailActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // scene切换动画: 向下平移(速度插值), 控件切换动画: ChangeBounds(爆炸插值)  顺序播放动画
                 TransitionManager.go(scene4, TransitionInflater.from(AnimationsActivity2.this).
                         inflateTransition(R.transition.slide_and_changebounds_sequential_with_interpolators));
             }

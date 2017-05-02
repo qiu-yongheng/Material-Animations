@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 /**
  * Created by lgvalle on 05/09/15.
+ *
  */
 public class SharedElementFragment1 extends Fragment {
 
@@ -43,7 +44,7 @@ public class SharedElementFragment1 extends Fragment {
         // 设置图片填充色
         DrawableCompat.setTint(squareBlue.getDrawable(), sample.color);
 
-        //
+        // 切换fragment (动画不重叠)
         view.findViewById(R.id.sample2_button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +52,7 @@ public class SharedElementFragment1 extends Fragment {
             }
         });
 
-        //
+        // 切换fragment (动画重叠)
         view.findViewById(R.id.sample2_button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
